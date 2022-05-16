@@ -79,7 +79,7 @@
         <div v-for="(image, index) in deleted_media" :key="index" class="m-top">
             <input type="text" name="deleted_media[]" :value="image.name" hidden>
         </div>
-        <div v-if="added_media.length||saved_media.length" :key="index" class="m-top">
+        <div v-if="added_media.length||saved_media.length" class="m-top">
             <input type="text" name="media" value="1" hidden>
         </div>
     </div>
