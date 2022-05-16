@@ -155,9 +155,9 @@ Basically after the image get uploaded the server return the unique image name a
 
 | event | value | Description |
 | --- | --- | --- |
-| **@saved_media** | array | Emit the saved images. |
-| **@added_media** | array | Emit the added images. |
-| **@deleted_media** | array | Emit the deleted images. |
+| **@saved-media** | array | Emit the saved images. |
+| **@added-media** | array | Emit the added images. |
+| **@deleted-media** | array | Emit the deleted images. |
 
 
 # 🤝 Contributing
