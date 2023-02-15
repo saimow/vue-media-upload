@@ -22,7 +22,7 @@
 
   🖼️ **This package** support **the create and the update form**, and handles the upload for you.
 
-  ![vue-media-upload - multiple image upload with preview ](/static/vue-media-upload.PNG)
+  ![vue-media-upload - multiple image upload with preview ](/static/vue-media-upload.jpg)
   
 </div>
 
@@ -211,9 +211,9 @@ export default {
 
 # ⭐️ Support
 
-![vue-media-upload - multiple image upload with preview ](/static/vue-media-upload.PNG)
-
 If you like this project, You can support me with starring ⭐ this repository.
+
+![vue-media-upload - multiple image upload with preview ](/static/vue-media-upload.jpg)
 
 
 # 📄 License
