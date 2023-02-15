@@ -1,0 +1,31 @@
+{
+  "name": "vue-media-upload",
+  "version": "",
+  "description": "upload multiple images with preview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saimow/vue-media-upload.git"
+  },
+  "keywords": [
+    "vue",
+    "javascript",
+    "webdev",
+    "media-upload",
+    "image-upload",
+    "image-preview",
+    "vue-media-upload",
+    "dropzone",
+    "forms",
+    "laravel"
+  ],
+  "author": "Saimo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saimow/vue-media-upload/issues"
+  },
+  "homepage": "https://github.com/saimow/vue-media-upload#readme"
+}
