@@ -104,6 +104,10 @@
                 type: String,
                 default: ''
             },
+            max:{
+                type: Number,
+                default: null
+            }
         },
         mounted() {
             this.init()
@@ -136,16 +140,21 @@
                 let files = event.target.files
 
                 for(var i=0; i < files.length; i++){
-                    let formData = new FormData
-                    let url = URL.createObjectURL(files[i])
-                    formData.set('image', files[i])
+                    if(!this.max || this.allMedia.length < this.max){
+                        let formData = new FormData
+                        let url = URL.createObjectURL(files[i])
+                        formData.set('image', files[i])
 
-                    const {data} = await axios.post(this.server, formData)
-                    let addedImage = {url:url, name:data.name, size:files[i].size, type:files[i].type}
-                    this.addedMedia.push(addedImage);
+                        const {data} = await axios.post(this.server, formData)
+                        let addedImage = {url:url, name:data.name, size:files[i].size, type:files[i].type}
+                        this.addedMedia.push(addedImage);
 
-                    this.$emit('change', this.allMedia)
-                    this.$emit('add', addedImage, this.addedMedia)
+                        this.$emit('change', this.allMedia)
+                        this.$emit('add', addedImage, this.addedMedia)
+                    }else{
+                        alert('Oops, you have hit the maximum number of files that you can upload. \n[Maximum Files: '+ this.max +']')
+                        break;
+                    }
                 }
                 this.isLoading=false
             },
