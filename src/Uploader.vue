@@ -157,6 +157,7 @@
                         break;
                     }
                 }
+                event.target.value = null
                 this.isLoading=false
             },
             removeAddedMedia(index){
