@@ -157,6 +157,7 @@
                             this.$emit('change', this.allMedia)
                             this.$emit('add', addedImage, this.addedMedia)
                         }else{
+                            this.$emit('maxFilesize', files[i].size)
                             alert('The file you are trying to upload is too big. \nMaximum Filesize: '+ this.maxFilesize +'MB')
                             break;
                         }
@@ -197,6 +198,7 @@
             'add',
             'remove',
             'max',
+            'maxFilesize'
         ],
         components:{
             Loader
