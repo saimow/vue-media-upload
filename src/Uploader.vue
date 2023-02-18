@@ -153,7 +153,7 @@
                         this.$emit('add', addedImage, this.addedMedia)
                     }else{
                         this.$emit('max')
-                        alert('Oops, you have hit the maximum number of files that you can upload. \n[Maximum Files: '+ this.max +']')
+                        alert('You have reached the maximum number of files that you can upload. \nMaximum Files: '+ this.max)
                         break;
                     }
                 }
