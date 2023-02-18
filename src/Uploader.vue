@@ -107,7 +107,11 @@
             max:{
                 type: Number,
                 default: null
-            }
+            },
+            maxFilesize:{
+                type: Number,
+                default: 4
+            },
         },
         mounted() {
             this.init()
@@ -141,16 +145,21 @@
 
                 for(var i=0; i < files.length; i++){
                     if(!this.max || this.allMedia.length < this.max){
-                        let formData = new FormData
-                        let url = URL.createObjectURL(files[i])
-                        formData.set('image', files[i])
-
-                        const {data} = await axios.post(this.server, formData)
-                        let addedImage = {url:url, name:data.name, size:files[i].size, type:files[i].type}
-                        this.addedMedia.push(addedImage);
-
-                        this.$emit('change', this.allMedia)
-                        this.$emit('add', addedImage, this.addedMedia)
+                        if(files[i].size <= this.maxFilesize*1000000){
+                            let formData = new FormData
+                            let url = URL.createObjectURL(files[i])
+                            formData.set('image', files[i])
+    
+                            const {data} = await axios.post(this.server, formData)
+                            let addedImage = {url:url, name:data.name, size:files[i].size, type:files[i].type}
+                            this.addedMedia.push(addedImage);
+    
+                            this.$emit('change', this.allMedia)
+                            this.$emit('add', addedImage, this.addedMedia)
+                        }else{
+                            alert('The file you are trying to upload is too big. \nMaximum Filesize: '+ this.maxFilesize +'MB')
+                            break;
+                        }
                     }else{
                         this.$emit('max')
                         alert('You have reached the maximum number of files that you can upload. \nMaximum Files: '+ this.max)
