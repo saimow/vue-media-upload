@@ -112,6 +112,10 @@
                 type: Number,
                 default: 4
             },
+            warnings:{
+                type: Boolean,
+                default: true
+            }
         },
         mounted() {
             this.init()
@@ -158,12 +162,16 @@
                             this.$emit('add', addedImage, this.addedMedia)
                         }else{
                             this.$emit('maxFilesize', files[i].size)
-                            alert('The file you are trying to upload is too big. \nMaximum Filesize: '+ this.maxFilesize +'MB')
+                            if(this.warnings){
+                                alert('The file you are trying to upload is too big. \nMaximum Filesize: '+ this.maxFilesize +'MB')
+                            }
                             break;
                         }
                     }else{
                         this.$emit('max')
-                        alert('You have reached the maximum number of files that you can upload. \nMaximum Files: '+ this.max)
+                        if(this.warnings){
+                            alert('You have reached the maximum number of files that you can upload. \nMaximum Files: '+ this.max)
+                        }
                         break;
                     }
                 }
