@@ -90,11 +90,11 @@
         props:{
             server: {
                 type: String,
-                default: '/api/upload',
+                default: '/api/upload'
             },
             isInvalid: {
                 type: Boolean,
-                default: false,
+                default: false
             },
             media:{
                 type: Array,
@@ -141,10 +141,10 @@
                 
                 setTimeout(() => this.isLoading = false, 1000)
 
-                this.$emit('init', this.media);
+                this.$emit('init', this.media)
             },
             async fileChange(event){
-                this.isLoading=true
+                this.isLoading = true
                 let files = event.target.files
 
                 for(var i=0; i < files.length; i++){
@@ -156,7 +156,7 @@
     
                             const {data} = await axios.post(this.server, formData)
                             let addedImage = {url:url, name:data.name, size:files[i].size, type:files[i].type}
-                            this.addedMedia.push(addedImage);
+                            this.addedMedia.push(addedImage)
     
                             this.$emit('change', this.allMedia)
                             this.$emit('add', addedImage, this.addedMedia)
@@ -176,7 +176,7 @@
                     }
                 }
                 event.target.value = null
-                this.isLoading=false
+                this.isLoading = false
             },
             removeAddedMedia(index){
                 let removedImage = this.addedMedia[index]
@@ -192,7 +192,7 @@
 
                 this.$emit('change', this.allMedia)
                 this.$emit('remove', removedImage, this.removedMedia)
-            },
+            }
             
         },
         computed:{
@@ -210,8 +210,7 @@
         ],
         components:{
             Loader
-        },
-        
+        }
     }
         
 </script>
