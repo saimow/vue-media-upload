@@ -156,21 +156,26 @@ export default {
 # ⚙️ Props
 
 | Prop | Type | Default | Description |
-| --- | --- | --- | --- |
+| --- | --- | :---: | --- |
 | **server** | String | `'/api/upload'` | The Route that handle the image upload. The Upload handler should return the name of the uploaded image in the following format: <br> `{ "name": "123_image.jpg" }` |
 | **isInvalid** | Boolean | `false` | Whether error styling should be applied. |
 | **media** | Array | `[]` | The list of the stored images, that each of which must have the property `name` containing the name of the image. <br> `[ { name: '123_image.jpg' } , { name: '456_image.jpg' } ]` |
 | **location** | String | `''` | The location of the folder where the saved images are stored.|
+| **max** | Number | `null` | The maximum number of files allowed to be uploaded.|
+| **maxFilesize** | Number | `4` | The maximum filesize (in megabytes) that is allowed to be uploaded|
+| **warnings** | Boolean | `true` | By default, the package uses JavaScript alerts to display warnings. In case you want to use your custom warnings, you can disable the component pop-ups using this prop. |
 
 
 # 💾 Events
 
 | Event | Payload | Description |
 | --- | --- | --- |
-| **@init** | - `param` : The list of all the listed images. | Emited when the component is ready to use. |
-| **@change** | - `param` : The list of all the listed images. | Emited after an image was added or removed. |
-| **@add** |  - `param1` : The image that was added. <br> - `param2` : The list of the added Images. | Emited after an image was added. |
-| **@remove** |  - `param1` : The image that was removed. <br> - `param2` : The list of images that have been removed from the stored media. | Emited after an image was removed. |
+| **@init** | `param` : The list of all the listed images. | Emitted when the component is ready to use. |
+| **@change** | `param` : The list of all the listed images. | Emitted after an image was added or removed. |
+| **@add** | `param1` : The image that was added. <br> `param2` : The list of the added Images. | Emitted after an image was added. |
+| **@remove** | `param1` : The image that was removed. <br> `param2` : The list of images that have been removed from the stored media. | Emitted after an image was removed. |
+| **@max** | | Emitted when `max` prop is exceeded. |
+| **@max-filesize** | `param` : The image size. | Emitted when `maxFilesize` prop is exceeded. |
 
 
 # 📙 How it works in a Server-Rendered Form?
