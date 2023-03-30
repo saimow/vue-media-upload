@@ -141,7 +141,7 @@
                 
                 setTimeout(() => this.isLoading = false, 1000)
 
-                this.$emit('init', this.media)
+                this.$emit('init', this.allMedia)
             },
             async fileChange(event){
                 this.isLoading = true
