@@ -92,6 +92,10 @@
                 type: String,
                 default: '/api/upload'
             },
+	    parameName:{
+	    	type:String,
+		default: 'image'
+	    }
             isInvalid: {
                 type: Boolean,
                 default: false
@@ -152,7 +156,7 @@
                         if(files[i].size <= this.maxFilesize*1000000){
                             let formData = new FormData
                             let url = URL.createObjectURL(files[i])
-                            formData.set('image', files[i])
+                            formData.set(this.paramName, files[i])
     
                             const {data} = await axios.post(this.server, formData)
                             let addedImage = {url:url, name:data.name, size:files[i].size, type:files[i].type}
