@@ -11,7 +11,7 @@
                 
                 <!--UPLOAD BUTTON-->
                 <div class="mu-plusbox-container">
-                    <label for="mu-file-input" class="mu-plusbox">
+                    <label :for="inputId" class="mu-plusbox">
                         <svg
                             class="mu-plus-icon"
                             xmlns="http://www.w3.org/2000/svg" 
@@ -26,7 +26,7 @@
                                 </g>
                         </svg>
                     </label>     
-                    <input @change="fileChange" id="mu-file-input" type="file" accept="image/*" multiple hidden>
+                    <input @change="fileChange" :id="inputId" type="file" accept="image/*" multiple hidden>
                 </div>
 
                 <!--IMAGES PREVIEW-->
@@ -115,7 +115,11 @@
             warnings:{
                 type: Boolean,
                 default: true
-            }
+            },
+	    inputId:{
+		type: String,
+                default: 'mu-file-input'
+	    }
         },
         mounted() {
             this.init()
