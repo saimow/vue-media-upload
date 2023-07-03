@@ -118,7 +118,8 @@
             },
 	        inputId:{
 		        type: String,
-                default: 'mu-file-input',
+                default: 'mu-file-input'
+			},
             withIdFolder:{
                 type: Boolean,
                 default: false
