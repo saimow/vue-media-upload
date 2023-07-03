@@ -32,7 +32,7 @@
                 <!--IMAGES PREVIEW-->
                 
                 <div v-for="(image, index) in savedMedia" :key="index" class="mu-image-container">
-                    <img :src="location +'/'+ image.name" alt=""  class="mu-images-preview">
+                    <img :src="withIdFolder ? location +'/'+ image.id + '/' + image.name : location +'/'+ image.name" alt=""  class="mu-images-preview">
                     <button @click="removeSavedMedia(index)" class="mu-close-btn" type="button">
                         <svg 
                             class='mu-times-icon' 
@@ -116,10 +116,13 @@
                 type: Boolean,
                 default: true
             },
-	    inputId:{
-		type: String,
-                default: 'mu-file-input'
-	    }
+	        inputId:{
+		        type: String,
+                default: 'mu-file-input',
+            withIdFolder:{
+                type: Boolean,
+                default: false
+            }
         },
         mounted() {
             this.init()
@@ -139,7 +142,11 @@
 
                 this.savedMedia.forEach((image, index) => {
                     if(!this.savedMedia[index].url){
-                        this.savedMedia[index].url = this.location + "/" + image.name
+                         if(this.withIdFolder){
+                            this.savedMedia[index].url = this.location + "/" + image.id + "/" + image.name
+                        } else {
+                            this.savedMedia[index].url = this.location + "/" + image.name
+                        }
                     }
                 });
                 
