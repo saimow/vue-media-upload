@@ -13,50 +13,49 @@
     <img alt="npm" src="https://img.shields.io/bundlephobia/minzip/vue-media-upload">
   </a>
 
-  # vue-media-upload
+# vue-media-upload
 
 </div>
 <div align="">
 
-  📷 **vue-media-upload** is a Vuejs package that handle multiple images upload and preview.
+📷 **vue-media-upload** is a Vuejs package that handle multiple images upload and preview.
 
-  🖼️ **This package** support **the create and the update form**, and handles the upload for you.
+🖼️ **This package** support **the create and the update form**, and handles the upload for you.
 
-  ![vue-media-upload - multiple image upload with preview ](/static/vue-media-upload.jpg)
-  
+![vue-media-upload - multiple image upload with preview ](/static/vue-media-upload.jpg)
+
 </div>
-
 
 # 👀 Demo
 
 - [Full featured demo](https://github.com/saimow/media-upload-demo)
 
-
 # 💻 Install
 
 via npm
+
 ```sh
 npm install vue-media-upload
 ```
 
-or via yarn 
+or via yarn
+
 ```sh
 yarn add vue-media-upload
 ```
 
-
 # 🕹 Usage
 
 ```javascript
-import { createApp } from 'vue';
+import { createApp } from "vue";
 
-import Uploader from 'vue-media-upload';
+import Uploader from "vue-media-upload";
 
-let app = createApp({})
+let app = createApp({});
 
-app.component('Uploader', Uploader);
+app.component("Uploader", Uploader);
 
-app.mount("#app")
+app.mount("#app");
 ```
 
 or
@@ -66,8 +65,8 @@ import Uploader from "vue-media-upload";
 
 export default {
   components: {
-    Uploader
-  }
+    Uploader,
+  },
 };
 ```
 
@@ -78,31 +77,28 @@ export default {
 ```vue
 <template>
   <div>
-    <Uploader
-      server="/api/upload"
-      @change="changeMedia"
-    />
+    <Uploader server="/api/upload" @change="changeMedia" />
   </div>
 </template>
 
 <script>
-  import Uploader from 'vue-media-upload'
+import Uploader from "vue-media-upload";
 
-  export default {
-    data() {
-      return {
-        media: []
-      }
+export default {
+  data() {
+    return {
+      media: [],
+    };
+  },
+  methods: {
+    changeMedia(media) {
+      this.media = media;
     },
-    methods:{
-      changeMedia(media){
-        this.media = media
-      }
-    },
-    components: {
-      Uploader
-    },
-  }
+  },
+  components: {
+    Uploader,
+  },
+};
 </script>
 ```
 
@@ -122,61 +118,72 @@ export default {
 </template>
 
 <script>
-  import Uploader from 'vue-media-upload'
+import Uploader from "vue-media-upload";
 
-  export default {
-    data() {
-      return {
-        media: {
-          saved: [
-            { id: 1, name: '123_image.jpg' },
-            { id: 2, name: '456_image.jpg' },
-          ],
-          added: [],
-          removed: []
-        }
-      }
-    },
-    methods:{
-      addMedia(addedImage, addedMedia){
-        this.media.added = addedMedia
+export default {
+  data() {
+    return {
+      media: {
+        saved: [
+          { id: 1, name: "123_image.jpg" },
+          { id: 2, name: "456_image.jpg" },
+        ],
+        added: [],
+        removed: [],
       },
-      removeMedia(removedImage, removedMedia){
-        this.media.removed = removedMedia
-      }
+    };
+  },
+  methods: {
+    addMedia(addedImage, addedMedia) {
+      this.media.added = addedMedia;
     },
-    components: {
-      Uploader
+    removeMedia(removedImage, removedMedia) {
+      this.media.removed = removedMedia;
     },
-  }
+  },
+  components: {
+    Uploader,
+  },
+};
 </script>
 ```
 
+## Reading images from a server
+
+Attach the images you received from the server to the url you are using to handel the images  in the following format.
+
+```javaScript
+{
+  url:this.server + imageName,
+  name:imageName, // ie 123456.png
+  size: imageSize,// in byte format ie 337679. Not compulsory
+  type:'Image type'// in string format ie 'image/png'.Not Compulsory
+}
+
+```
 
 # ⚙️ Props
 
-| Prop | Type | Default | Description |
-| --- | --- | :---: | --- |
-| **server** | String | `'/api/upload'` | The Route that handle the image upload. The Upload handler should return the name of the uploaded image in the following format: <br> `{ "name": "123_image.jpg" }` |
-| **isInvalid** | Boolean | `false` | Whether error styling should be applied. |
-| **media** | Array | `[]` | The list of the stored images, that each of which must have the property `name` containing the name of the image. <br> `[ { name: '123_image.jpg' } , { name: '456_image.jpg' } ]` |
-| **location** | String | `''` | The location of the folder where the saved images are stored.|
-| **max** | Number | `null` | The maximum number of files allowed to be uploaded.|
-| **maxFilesize** | Number | `4` | The maximum filesize (in megabytes) that is allowed to be uploaded|
-| **warnings** | Boolean | `true` | By default, the package uses JavaScript alerts to display warnings. In case you want to use your custom warnings, you can disable the component pop-ups using this prop. |
-
+| Prop            | Type    |     Default     | Description                                                                                                                                                                        |
+| --------------- | ------- | :-------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **server**      | String  | `'/api/upload'` | The Route that handle the image upload. The Upload handler should return the name of the uploaded image in the following format: <br> `{ "name": "123_image.jpg" }`                |
+| **isInvalid**   | Boolean |     `false`     | Whether error styling should be applied.                                                                                                                                           |
+| **media**       | Array   |      `[]`       | The list of the stored images, that each of which must have the property `name` containing the name of the image. <br> `[ { name: '123_image.jpg' } , { name: '456_image.jpg' } ]` |
+| **location**    | String  |      `''`       | The location of the folder where the saved images are stored.                                                                                                                      |
+| **max**         | Number  |     `null`      | The maximum number of files allowed to be uploaded.                                                                                                                                |
+| **maxFilesize** | Number  |       `4`       | The maximum filesize (in megabytes) that is allowed to be uploaded                                                                                                                 |
+| **warnings**    | Boolean |     `true`      | By default, the package uses JavaScript alerts to display warnings. In case you want to use your custom warnings, you can disable the component pop-ups using this prop.           |
 
 # 💾 Events
 
-| Event | Payload | Description |
-| --- | --- | --- |
-| **@init** | `param` : The list of all the listed images. | Emitted when the component is ready to use. |
-| **@change** | `param` : The list of all the listed images. | Emitted after an image was added or removed. |
-| **@add** | `param1` : The image that was added. <br> `param2` : The list of the added Images. | Emitted after an image was added. |
-| **@remove** | `param1` : The image that was removed. <br> `param2` : The list of images that have been removed from the stored media. | Emitted after an image was removed. |
-| **@max** | | Emitted when `max` prop is exceeded. |
-| **@max-filesize** | `param` : The image size. | Emitted when `maxFilesize` prop is exceeded. |
-
+| Event             | Payload                                                                                                                 | Description                                  |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| **@init**         | `param` : The list of all the listed images.                                                                            | Emitted when the component is ready to use.  |
+| **@change**       | `param` : The list of all the listed images.                                                                            | Emitted after an image was added or removed. |
+| **@add**          | `param1` : The image that was added. <br> `param2` : The list of the added Images.                                      | Emitted after an image was added.            |
+| **@remove**       | `param1` : The image that was removed. <br> `param2` : The list of images that have been removed from the stored media. | Emitted after an image was removed.          |
+| **@max**          |                                                                                                                         | Emitted when `max` prop is exceeded.         |
+| **@max-filesize** | `param` : The image size.                                                                                               | Emitted when `maxFilesize` prop is exceeded. |
 
 # 📙 How it works in a Server-Rendered Form?
 
@@ -192,17 +199,15 @@ export default {
 
 6. **server** uses the unique image name to move `123_image.jpg` from the `/tmp/uploads` folder to its final location.
 
-
 # 🔣 Inputs
 
 > **Note** that all this inputs are **hidden** and they are just a way to validate and pass data to the backend when using this package in a **Server-Rendered Form**!
 
-| Name attribute | Description |
-| --- | --- |
-| **added_media[]**  | The added images in the component |
-| **removed_media[]**  | The images that have been removed from the stored media. |
-| **media**  | This input is added, when the component has at least one image or more listed, as a way for the backend to validate the Images as being required. |
-
+| Name attribute      | Description                                                                                                                                       |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **added_media[]**   | The added images in the component                                                                                                                 |
+| **removed_media[]** | The images that have been removed from the stored media.                                                                                          |
+| **media**           | This input is added, when the component has at least one image or more listed, as a way for the backend to validate the Images as being required. |
 
 # 🤝 Contributing
 
@@ -213,13 +218,11 @@ export default {
 5. Push your code to your fork repository.
 6. Create pull request. 🙂
 
-
 # ⭐️ Support
 
 If you like this project, You can support me with starring ⭐ this repository.
 
 ![vue-media-upload - multiple image upload with preview ](/static/vue-media-upload.jpg)
-
 
 # 📄 License
 
