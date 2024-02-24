@@ -82,146 +82,145 @@
 </template>
 
 <script>
-    import Loader from './loader/index.vue';
-    import axios from 'axios'
+import Loader from './loader/index.vue';
+import axios from 'axios'
 
-    export default {
-
-        props:{
-            server: {
-                type: String,
-                default: '/api/upload'
-            },
-            isInvalid: {
-                type: Boolean,
-                default: false
-            },
-            media:{
-                type: Array,
-                default: []
-            },
-            location:{
-                type: String,
-                default: ''
-            },
-            max:{
-                type: Number,
-                default: null
-            },
-            maxFilesize:{
-                type: Number,
-                default: 4
-            },
-            warnings:{
-                type: Boolean,
-                default: true
-            },
-            headers: {
-                type: Object,
-                default: null,
-            }
+export default {
+    props: {
+        server: {
+            type: String,
+            default: '/api/upload'
         },
-        mounted() {
-            this.init()
+        isInvalid: {
+            type: Boolean,
+            default: false
         },
-        data(){
-            return{
-                addedMedia:[],
-                savedMedia:[],
-                removedMedia:[],
-
-                config: {
-                    headers: null,
-                },
-
-                isLoading:true
-            }
+        media: {
+            type: Array,
+            default: []
         },
-        methods:{
-            init(){
-                this.savedMedia = this.media
-                this.config.headers = this.headers
+        location: {
+            type: String,
+            default: ''
+        },
+        max: {
+            type: Number,
+            default: null
+        },
+        maxFilesize: {
+            type: Number,
+            default: 4
+        },
+        warnings: {
+            type: Boolean,
+            default: true
+        },
+        headers: {
+            type: Object,
+            default: null,
+        }
+    },
+    mounted() {
+        this.init()
+    },
+    data() {
+        return {
+            addedMedia: [],
+            savedMedia: [],
+            removedMedia: [],
 
-                this.savedMedia.forEach((image, index) => {
-                    if(!this.savedMedia[index].url){
-                        this.savedMedia[index].url = this.location + "/" + image.name
-                    }
-                });
-                
-                setTimeout(() => this.isLoading = false, 1000)
-
-                this.$emit('init', this.allMedia)
+            config: {
+                headers: null,
             },
-            async fileChange(event){
-                this.isLoading = true
-                let files = event.target.files
 
-                for(var i=0; i < files.length; i++){
-                    if(!this.max || this.allMedia.length < this.max){
-                        if(files[i].size <= this.maxFilesize*1000000){
-                            let formData = new FormData
-                            let url = URL.createObjectURL(files[i])
-                            formData.set('image', files[i])
-    
-                            const {data} = await axios.post(this.server, formData, this.config)
-                            let addedImage = {url:url, name:data.name, size:files[i].size, type:files[i].type}
-                            this.addedMedia.push(addedImage)
-    
-                            this.$emit('change', this.allMedia)
-                            this.$emit('add', addedImage, this.addedMedia)
-                        }else{
-                            this.$emit('maxFilesize', files[i].size)
-                            if(this.warnings){
-                                alert('The file you are trying to upload is too big. \nMaximum Filesize: '+ this.maxFilesize +'MB')
-                            }
-                            break;
-                        }
-                    }else{
-                        this.$emit('max')
-                        if(this.warnings){
-                            alert('You have reached the maximum number of files that you can upload. \nMaximum Files: '+ this.max)
+            isLoading: true
+        }
+    },
+    methods: {
+        init() {
+            this.savedMedia = this.media
+            this.config.headers = this.headers
+
+            this.savedMedia.forEach((image, index) => {
+                if (!this.savedMedia[index].url) {
+                    this.savedMedia[index].url = this.location + "/" + image.name
+                }
+            });
+
+            setTimeout(() => this.isLoading = false, 1000)
+
+            this.$emit('init', this.allMedia)
+        },
+        async fileChange(event) {
+            this.isLoading = true
+            let files = event.target.files
+
+            for (var i = 0; i < files.length; i++) {
+                if (!this.max || this.allMedia.length < this.max) {
+                    if (files[i].size <= this.maxFilesize * 1000000) {
+                        let formData = new FormData
+                        let url = URL.createObjectURL(files[i])
+                        formData.set('image', files[i])
+
+                        const { data } = await axios.post(this.server, formData, this.config)
+                        let addedImage = { url: url, name: data.name, size: files[i].size, type: files[i].type }
+                        this.addedMedia.push(addedImage)
+
+                        this.$emit('change', this.allMedia)
+                        this.$emit('add', addedImage, this.addedMedia)
+                    } else {
+                        this.$emit('maxFilesize', files[i].size)
+                        if (this.warnings) {
+                            alert('The file you are trying to upload is too big. \nMaximum Filesize: ' + this.maxFilesize + 'MB')
                         }
                         break;
                     }
+                } else {
+                    this.$emit('max')
+                    if (this.warnings) {
+                        alert('You have reached the maximum number of files that you can upload. \nMaximum Files: ' + this.max)
+                    }
+                    break;
                 }
-                event.target.value = null
-                this.isLoading = false
-            },
-            removeAddedMedia(index){
-                let removedImage = this.addedMedia[index]
-                this.addedMedia.splice(index,1)
-
-                this.$emit('change', this.allMedia)
-                this.$emit('remove', removedImage, this.removedMedia)
-            },
-            removeSavedMedia(index){
-                let removedImage = this.savedMedia[index]
-                this.removedMedia.push(removedImage)
-                this.savedMedia.splice(index,1)
-
-                this.$emit('change', this.allMedia)
-                this.$emit('remove', removedImage, this.removedMedia)
             }
-            
+            event.target.value = null
+            this.isLoading = false
         },
-        computed:{
-            allMedia(){
-                return [...this.savedMedia, ...this.addedMedia];
-            }
+        removeAddedMedia(index) {
+            let removedImage = this.addedMedia[index]
+            this.addedMedia.splice(index, 1)
+
+            this.$emit('change', this.allMedia)
+            this.$emit('remove', removedImage, this.removedMedia)
         },
-        emits: [
-            'init',
-            'change',
-            'add',
-            'remove',
-            'max',
-            'maxFilesize'
-        ],
-        components:{
-            Loader
+        removeSavedMedia(index) {
+            let removedImage = this.savedMedia[index]
+            this.removedMedia.push(removedImage)
+            this.savedMedia.splice(index, 1)
+
+            this.$emit('change', this.allMedia)
+            this.$emit('remove', removedImage, this.removedMedia)
         }
+
+    },
+    computed: {
+        allMedia() {
+            return [...this.savedMedia, ...this.addedMedia];
+        }
+    },
+    emits: [
+        'init',
+        'change',
+        'add',
+        'remove',
+        'max',
+        'maxFilesize'
+    ],
+    components: {
+        Loader
     }
-        
+}
+
 </script>
 
 <style scoped>
