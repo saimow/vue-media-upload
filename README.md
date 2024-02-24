@@ -164,6 +164,7 @@ export default {
 | **max** | Number | `null` | The maximum number of files allowed to be uploaded.|
 | **maxFilesize** | Number | `4` | The maximum filesize (in megabytes) that is allowed to be uploaded|
 | **warnings** | Boolean | `true` | By default, the package uses JavaScript alerts to display warnings. In case you want to use your custom warnings, you can disable the component pop-ups using this prop. |
+| **headers** | Object | `null` | An optional prop to send additional headers to the server. Eg: `{ "Authorization": "Bearer ACCESS_TOKEN" }` |
 
 
 # 💾 Events
