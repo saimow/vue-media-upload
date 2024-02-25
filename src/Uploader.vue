@@ -11,7 +11,7 @@
                 
                 <!--UPLOAD BUTTON-->
                 <div class="mu-plusbox-container">
-                    <label for="mu-file-input" class="mu-plusbox">
+                    <label class="mu-plusbox">
                         <svg
                             class="mu-plus-icon"
                             xmlns="http://www.w3.org/2000/svg" 
@@ -25,8 +25,8 @@
                                         fill="currentColor"/>
                                 </g>
                         </svg>
+                        <input @change="fileChange" type="file" accept="image/*" multiple hidden>
                     </label>     
-                    <input @change="fileChange" id="mu-file-input" type="file" accept="image/*" multiple hidden>
                 </div>
 
                 <!--IMAGES PREVIEW-->
