@@ -129,8 +129,8 @@ export default {
       return {
         media: {
           saved: [
-            { id: 1, name: '123_image.jpg' },
-            { id: 2, name: '456_image.jpg' },
+            { name: '123_image.jpg' },
+            { name: '456_image.jpg' },
           ],
           added: [],
           removed: []
